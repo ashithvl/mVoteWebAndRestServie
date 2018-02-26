@@ -1,4 +1,4 @@
-package com.mvote.m_vote;
+package com.mvote;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

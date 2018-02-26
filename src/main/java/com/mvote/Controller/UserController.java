@@ -6,10 +6,7 @@ import com.mvote.utils.CustomErrorType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/user")
@@ -24,19 +21,18 @@ public class UserController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public ResponseEntity getUserByUserNameAndPassword(@PathVariable String username, @PathVariable String password) {
-        Users users = iUserService.getUserByUserNameAndPassword(username, password);
-        if (users != null)
-            return new ResponseEntity<>(users, HttpStatus.OK);
+    public ResponseEntity getUserByUserNameAndPassword(@RequestBody Users users) {
+        Users user = iUserService.getUserByUserNameAndPassword(users.getUsername(), users.getPassword());
+        if (user != null)
+            return new ResponseEntity<>(user, HttpStatus.OK);
         else
-            return new ResponseEntity<>(new CustomErrorType("User with username " + username
+            return new ResponseEntity<>(new CustomErrorType("User with username " + user.getUsername()
                     + " not found"), HttpStatus.NOT_FOUND);
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public ResponseEntity registerUser(@PathVariable String username, @PathVariable String password,
-                                       @PathVariable String userImage, @PathVariable int age) {
-        boolean register = iUserService.registerUser(username, password, userImage, age);
+    public ResponseEntity registerUser(@RequestBody Users users) {
+        boolean register = iUserService.registerUser(users.getUsername(), users.getPassword(), users.getUserImage(), users.getAge());
         if (register)
             return new ResponseEntity<>(true, HttpStatus.OK);
         else
