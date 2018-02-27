@@ -16,7 +16,7 @@ public class UserController {
     IUserService iUserService;
 
     @RequestMapping("/hi")
-    public String hi(){
+    public String hi() {
         return "hi";
     }
 
@@ -32,11 +32,12 @@ public class UserController {
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public ResponseEntity registerUser(@RequestBody Users users) {
-        boolean register = iUserService.registerUser(users.getUsername(), users.getPassword(), users.getUserImage(), users.getAge());
-        if (register)
-            return new ResponseEntity<>(true, HttpStatus.OK);
-        else
-            return new ResponseEntity<>(new CustomErrorType("Registration"), HttpStatus.NOT_FOUND);
+        Users newUsers = iUserService.registerUser(users.getCardnum(), users.getPassword());
+        System.out.println(newUsers);
+        if (newUsers != null) {
+            return new ResponseEntity<>(newUsers, HttpStatus.OK);
+        } else
+            return new ResponseEntity<>(new CustomErrorType("Registration Failed"), HttpStatus.NOT_FOUND);
     }
 
 }

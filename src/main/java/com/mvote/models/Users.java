@@ -4,10 +4,12 @@ public class Users {
 
     private int id;
     private String username;
+    private String cardnum;
     private String password;
     private String userImage;
     private int age;
     private int isAdmin;
+    private int isQualified;
     private String createdBy;
     private String createTs;
     private String modifiedBy;
@@ -26,8 +28,24 @@ public class Users {
         return username;
     }
 
+    public int getIsQualified() {
+        return isQualified;
+    }
+
+    public void setIsQualified(int isQualified) {
+        this.isQualified = isQualified;
+    }
+
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getCardnum() {
+        return cardnum;
+    }
+
+    public void setCardnum(String cardnum) {
+        this.cardnum = cardnum;
     }
 
     public String getPassword() {

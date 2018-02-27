@@ -18,7 +18,7 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public boolean registerUser(String username, String password, String userImage, int age) {
-        return iUserDao.registerUser(username, password, userImage, age);
+    public Users registerUser(String cardNum, String password) {
+        return iUserDao.registerUser(cardNum, password);
     }
 }
