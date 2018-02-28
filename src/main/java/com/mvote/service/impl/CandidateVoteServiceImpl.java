@@ -16,4 +16,9 @@ public class CandidateVoteServiceImpl implements ICandidateVoteService {
     public CandidatesVote getCandidatesVote(int userId, int electionId, int candidateId) {
         return iCandidateVoteDao.getCandidatesVote(userId, electionId, candidateId);
     }
+
+    @Override
+    public String vote(int userId, int electionId, int candidateId) {
+        return iCandidateVoteDao.vote(userId, electionId, candidateId);
+    }
 }

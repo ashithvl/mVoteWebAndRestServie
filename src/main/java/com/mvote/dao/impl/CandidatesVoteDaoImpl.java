@@ -32,4 +32,27 @@ public class CandidatesVoteDaoImpl implements ICandidateVoteDao {
 
         return candidatesVote;
     }
+
+    @Override
+    public String vote(int userId, int electionId, int candidateId) {
+        String status = null;
+        String sql = "SELECT userId FROM `votes` WHERE userId = ? AND electionId = ?";
+        try {
+            status = jdbcTemplate.queryForObject(sql, new Object[]{userId, electionId}, String.class);
+        } catch (DataAccessException e) {
+            System.out.println("Select exception " + e.getMessage());
+        }
+        if (status == null) {
+            String insertSql = "INSERT INTO `votes` ( `userId`, `electionId`, `candidateId`, `createdBy`, `createdTs`, `modifiedBy`, `modifiedTs`, `deleteFlag`) VALUES ( ?, ?, ? , '1', CURRENT_TIMESTAMP, '1', CURRENT_TIMESTAMP, '0')";
+            try {
+                if (jdbcTemplate.update(insertSql, userId, electionId, candidateId) >= 1) {
+                    return "success";
+                }
+            } catch (DataAccessException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+
+        return null;
+    }
 }

@@ -5,4 +5,8 @@ import com.mvote.models.CandidatesVote;
 public interface ICandidateVoteService {
 
     CandidatesVote getCandidatesVote(int userId, int electionId, int candidateId);
+
+
+    String vote(int userId,int electionId,int candidateId);
+
 }

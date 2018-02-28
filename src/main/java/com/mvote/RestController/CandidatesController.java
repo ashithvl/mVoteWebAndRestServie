@@ -34,13 +34,24 @@ public class CandidatesController {
         else
             return new ResponseEntity<>(new CustomErrorType("No Candidates found"), HttpStatus.NOT_FOUND);
     }
-    
+
     @RequestMapping(value = "/getCandidateVote/{userId}/{electionId}/{candidateId}")
     public ResponseEntity getCandidateVote(@PathVariable int userId, @PathVariable int electionId,
                                            @PathVariable int candidateId) {
         CandidatesVote candidatesVote = iCandidateVoteService.getCandidatesVote(userId, electionId, candidateId);
         if (candidatesVote != null)
             return new ResponseEntity<>(candidatesVote, HttpStatus.OK);
+        else
+            return new ResponseEntity<>(new CustomErrorType("Cannot vote"), HttpStatus.NOT_FOUND);
+    }
+
+
+    @RequestMapping(value = "/vote/{userId}/{electionId}/{candidateId}")
+    public ResponseEntity vote(@PathVariable int userId, @PathVariable int electionId,
+                               @PathVariable int candidateId) {
+        String vote = iCandidateVoteService.vote(userId, electionId, candidateId);
+        if (vote != null)
+            return new ResponseEntity<>(vote, HttpStatus.OK);
         else
             return new ResponseEntity<>(new CustomErrorType("No votes found"), HttpStatus.NOT_FOUND);
     }
