@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatibile" content="ie=edge"/>
+    <!--<link rel="stylesheet" type="text/css" href="css/bootstrap.css"-->
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}"/>
+    <!-- <link rel="stylesheet" href="style.css"> -->
+    <link rel="stylesheet" type="text/css" href="/css/style.css" th:href="@{/css/style.css}"/>
+
+    <title>mVoting - Login</title>
+</head>
+<body>
+<header class="container">
+    <nav class="navbar navbar-light bg-light">
+        <a class="navbar-brand" href="#">ADMIN LOGIN</a>
+    </nav>
+</header>
+<section class="container">
+    <div th:if="${invalidLogin != null}" class="alert alert-danger mt-5" role="alert">
+        <span th:text="*{invalidLogin}"></span>
+    </div>
+    <div class="row align-items-center mt-5">
+        <div class="card bg-light box-shadow col-6 mx-auto">
+            <div class="card-body">
+                <form action="#" th:action="@{/login}" method="post">
+
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">User Name</label>
+                        <input type="text" class="form-control" id="exampleInputEmail1" name="username"
+                               placeholder="Enter your User Name" th:value="*{username}"/>
+                        <p th:text="*{errorUsername}" class="text-danger"></p>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Password</label>
+                        <input type="password" class="form-control" id="exampleInputPassword1"
+                               placeholder="Enter your Password" name="password" th:value="*{password}"/>
+                        <p th:text="*{errorPassword}" class="text-danger"></p>
+                    </div>
+                    <input type="submit" class="btn btn-primary float-right" value="Log In"/>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+<footer class="footer">
+    <span class="pl-5 text-muted">Copyrights &copy; 2018</span>
+</footer>
+</body>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/tether.min.js"></script>
+<script src="/js/jquery-3.2.1.slim.min.js"></script>
+</html>

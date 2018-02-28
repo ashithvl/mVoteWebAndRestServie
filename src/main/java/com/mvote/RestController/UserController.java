@@ -1,4 +1,4 @@
-package com.mvote.Controller;
+package com.mvote.RestController;
 
 import com.mvote.models.Users;
 import com.mvote.service.IUserService;
