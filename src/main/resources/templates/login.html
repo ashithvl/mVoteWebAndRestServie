@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
+<head th:fragment="head">
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
     <meta http-equiv="X-UA-Compatibile" content="ie=edge"/>
@@ -9,11 +9,11 @@
     <!-- <link rel="stylesheet" href="style.css"> -->
     <link rel="stylesheet" type="text/css" href="/css/style.css" th:href="@{/css/style.css}"/>
 
-    <title>mVoting - Login</title>
+    <title>mVoting - Admin</title>
 </head>
 <body>
 <header class="container">
-    <nav class="navbar navbar-light bg-light">
+    <nav class="navbar navbar-light navbar-light" style="background-color: #e3f2fd;">
         <a class="navbar-brand" href="#">ADMIN LOGIN</a>
     </nav>
 </header>
@@ -45,7 +45,7 @@
         </div>
     </div>
 </section>
-<footer class="footer">
+<footer th:fragment="footer" class="footer">
     <span class="pl-5 text-muted">Copyrights &copy; 2018</span>
 </footer>
 </body>

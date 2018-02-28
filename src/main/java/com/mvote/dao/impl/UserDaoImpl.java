@@ -72,7 +72,7 @@ public class UserDaoImpl implements IUserDao {
                 return null;
             }
         } catch (DataAccessException e) {
-            return null;
+            System.out.println(e.getMessage());
         }
         return users;
     }

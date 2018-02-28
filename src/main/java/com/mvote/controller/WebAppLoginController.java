@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-public class WebAppUserController {
+public class WebAppLoginController {
 
     @Autowired
     IUserService iUserService;
@@ -37,7 +37,7 @@ public class WebAppUserController {
             model.addAttribute("errorPassword", "The Password must not be Empty.");
             return "login";
         }else if (users != null && users.getIsAdmin() == 1) {
-
+            return "election";
         }else {
             model.addAttribute("invalidLogin", "Invalid Username and Password for Admin");
         }
