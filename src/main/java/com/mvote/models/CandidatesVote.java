@@ -56,4 +56,16 @@ public class CandidatesVote {
     public void setVote(String vote) {
         this.vote = vote;
     }
+
+    @Override
+    public String toString() {
+        return "CandidatesVote{" +
+                "votesCount=" + votesCount +
+                ", electionId=" + electionId +
+                ", candidateId=" + candidateId +
+                ", candidatesName='" + candidatesName + '\'' +
+                ", candidatesImage='" + candidatesImage + '\'' +
+                ", vote='" + vote + '\'' +
+                '}';
+    }
 }

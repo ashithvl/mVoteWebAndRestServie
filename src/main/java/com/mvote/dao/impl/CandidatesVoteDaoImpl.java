@@ -17,11 +17,9 @@ public class CandidatesVoteDaoImpl implements ICandidateVoteDao {
     @Autowired
     JdbcTemplate jdbcTemplate;
 
-    private CandidatesVote candidatesVote;
-
     @Override
     public CandidatesVote getCandidatesVote(int userId, int electionId, int candidateId) {
-
+        CandidatesVote candidatesVote = null;
         String sql = "SELECT COUNT(votes.candidateId) as votesCount,votes.electionId,votes.candidateId,candidates.candidatesName,candidates.candidatesImage,IF(votes.userId = ?, 'true', 'false') AS vote FROM `votes`as votes INNER JOIN candidates as candidates on candidates.candidatesId = votes.candidateId WHERE votes.electionId = ? AND votes.candidateId = ? GROUP by candidateId";
         RowMapper<CandidatesVote> rowMapper = new BeanPropertyRowMapper<>(CandidatesVote.class);
         try {
@@ -41,18 +39,16 @@ public class CandidatesVoteDaoImpl implements ICandidateVoteDao {
             status = jdbcTemplate.queryForObject(sql, new Object[]{userId, electionId}, String.class);
         } catch (DataAccessException e) {
             System.out.println("Select exception " + e.getMessage());
-        }
-        if (status == null) {
             String insertSql = "INSERT INTO `votes` ( `userId`, `electionId`, `candidateId`, `createdBy`, `createdTs`, `modifiedBy`, `modifiedTs`, `deleteFlag`) VALUES ( ?, ?, ? , '1', CURRENT_TIMESTAMP, '1', CURRENT_TIMESTAMP, '0')";
             try {
                 if (jdbcTemplate.update(insertSql, userId, electionId, candidateId) >= 1) {
+                    System.out.println("success");
                     return "success";
                 }
-            } catch (DataAccessException e) {
-                System.out.println(e.getMessage());
+            } catch (DataAccessException ex) {
+                System.out.println(ex.getMessage());
             }
         }
-
-        return null;
+        return status;
     }
 }
