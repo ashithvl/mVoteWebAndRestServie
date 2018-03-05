@@ -33,4 +33,9 @@ public class ElectionServiceImpl implements IElectionService {
     public List<Election> getPreviousElectionListForWeb() {
         return iElectionDao.getPreviousElectionList();
     }
+
+    @Override
+    public Election createElection(Election election) {
+        return iElectionDao.createElection(election);
+    }
 }

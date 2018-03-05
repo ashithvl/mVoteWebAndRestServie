@@ -1,6 +1,7 @@
 package com.mvote.controller;
 
 import com.mvote.models.Candidate;
+import com.mvote.models.Candidates;
 import com.mvote.models.Election;
 import com.mvote.models.Users;
 import com.mvote.service.ICandidatesOfAElectionService;
@@ -9,10 +10,9 @@ import com.mvote.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -35,10 +35,45 @@ public class WebAppElectionController {
         return "election";
     }
 
-    @RequestMapping("/election/createCandidate")
-    public String createCandidate(Candidate candidate) {
+    @RequestMapping(value = "/election/createCandidate", method = RequestMethod.GET)
+    public String createCandidate(Model model) {
+        Candidate candidate = new Candidate();
+        model.addAttribute("candidate", candidate);
+        return "createCandidate";
+    }
+
+    @RequestMapping(value = "/election/createCandidate", method = RequestMethod.POST)
+    public String createCandidate(@ModelAttribute("candidate") Candidate candidate) {
         iCandidatesOfAElectionService.createCandidate(candidate);
-        return "election";
+        return "redirect:/election";
+    }
+
+    @RequestMapping(value = "/election/createElection", method = RequestMethod.GET)
+    public String createElection(Model model) {
+        Election election = new Election();
+        model.addAttribute("election", election);
+        return "createElection";
+    }
+
+    @RequestMapping(value = "/election/createElection", method = RequestMethod.POST)
+    public String createElection(@ModelAttribute("election") Election election) {
+        System.out.println(election.getElectionEndDate());
+        iElectionService.createElection(election);
+        return "redirect:/election";
+    }
+
+    @RequestMapping(value = "/election/{id}/cur", method = RequestMethod.GET)
+    public String electionCandidatesCur(@PathVariable("id") int id, Model model) {
+        List<Candidates> candidatesList = iCandidatesOfAElectionService.getElectionCandidatesList(id);
+        model.addAttribute("candidatesList", candidatesList);
+        return "electionCandidates";
+    }
+
+    @RequestMapping(value = "/election/{id}/pre", method = RequestMethod.GET)
+    public String electionCandidatesPre(@PathVariable("id") int id, Model model) {
+        List<Candidates> candidatesList = iCandidatesOfAElectionService.getElectionCandidatesList(id);
+        model.addAttribute("candidatesList", candidatesList);
+        return "electionCandidates";
     }
 
 }

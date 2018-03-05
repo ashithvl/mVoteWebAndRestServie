@@ -13,4 +13,6 @@ public interface IElectionDao {
     List<Election> getCurrentAndUpComingElectionListForWeb();
 
     List<Election> getPreviousElectionListForWeb();
+
+    Election createElection(Election election);
 }

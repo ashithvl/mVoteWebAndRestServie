@@ -14,4 +14,5 @@ public interface IElectionService {
 
     List<Election> getPreviousElectionListForWeb();
 
+    Election createElection(Election election);
 }

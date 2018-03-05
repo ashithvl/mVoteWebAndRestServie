@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="login :: head">
+</head>
+<body>
+<header class="container">
+    <nav class="navbar navbar-expand-sm navbar-light" style="background-color: #e3f2fd;">
+        <a class="navbar-brand mr-auto" href="#"> Welcome Admin</a>
+        <a class="btn btn-outline-danger" href="/">Log Out</a>
+    </nav>
+</header>
+<div class="container">
+    <div class="row mt-3 justify-content-between ">
+        <h2 class="col-md-4"> Create Election </h2>
+        <div class="row w-100">
+            <!-- Modal body -->
+            <form class="col-md-6 w-100" th:action="@{/election/createElection}" th:object="${election}"
+                  method="post">
+                <div class="form-group">
+                    <label for="text">Name:</label>
+                    <input type="text" th:field="*{electionName}" class="form-control" autocomplete="off" id="text"/>
+                </div>
+                <div class="form-group">
+                    <label for="start">Start Date:</label>
+                    <input type="date" th:field="*{electionStartDate}" class="form-control" autocomplete="off"
+                           id="start"/>
+                </div>
+                <div class="form-group">
+                    <label for="end">End Date:</label>
+                    <input type="date" th:field="*{electionEndDate}" class="form-control" autocomplete="off"
+                           id="end"/>
+                </div>
+                <button type="submit" class="btn btn-primary"> Submit</button>
+                <a class="btn btn-danger" href="/election"> Back </a>
+            </form>
+
+        </div>
+
+    </div>
+</div>
+
+
+<footer th:replace="login :: footer"></footer>
+</body>
+<script src="/js/tether.min.js"></script>
+<script src="/js/jquery-3.2.1.slim.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>-->
+</html>

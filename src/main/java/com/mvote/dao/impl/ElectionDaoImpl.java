@@ -75,4 +75,26 @@ public class ElectionDaoImpl implements IElectionDao {
         }
         return electionArrayList;
     }
+
+    @Override
+    public Election createElection(Election election) {
+        Election newElection = null;
+
+        String sql = "INSERT INTO `election` (`electionName`, `electionStartDate`, `electionEndDate`, `createdBy`, `createdTs`, `modifiedBy`, `modifiedTs`, `deleteFlag`) VALUES ( '" + election.getElectionName() + "', '" + election.getElectionStartDate() + "', '" + election.getElectionEndDate() + "', '1', CURRENT_TIMESTAMP, '1', CURRENT_TIMESTAMP, '0')";
+        int electionId;
+        try {
+            electionId = jdbcTemplate.update(sql);
+            String selectQuery = "SELECT electionId,electionStartDate,electionEndDate FROM `election` WHERE electionId = ?";
+            RowMapper<Election> rowMapper = new BeanPropertyRowMapper<>(Election.class);
+            try {
+                newElection = jdbcTemplate.queryForObject(selectQuery, rowMapper, electionId);
+            } catch (DataAccessException e) {
+                System.out.println(e.getMessage());
+            }
+        } catch (DataAccessException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return newElection;
+    }
 }
