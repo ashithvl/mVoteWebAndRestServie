@@ -2,7 +2,6 @@ package com.mvote.RestController;
 
 import com.mvote.models.Candidates;
 import com.mvote.models.CandidatesVote;
-import com.mvote.models.Election;
 import com.mvote.service.ICandidateVoteService;
 import com.mvote.service.ICandidatesOfAElectionService;
 import com.mvote.utils.CustomErrorType;
@@ -12,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 

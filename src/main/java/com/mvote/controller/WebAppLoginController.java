@@ -37,12 +37,11 @@ public class WebAppLoginController {
             model.addAttribute("errorPassword", "The Password must not be Empty.");
             return "login";
         }else if (users != null && users.getIsAdmin() == 1) {
-            return "election";
+            return "redirect:/election";
         }else {
             model.addAttribute("invalidLogin", "Invalid Username and Password for Admin");
         }
 
         return "login";
     }
-
 }

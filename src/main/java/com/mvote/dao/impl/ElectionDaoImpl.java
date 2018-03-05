@@ -50,4 +50,29 @@ public class ElectionDaoImpl implements IElectionDao {
         }
         return electionArrayList;
     }
+
+    @Override
+    public List<Election> getCurrentAndUpComingElectionListForWeb() {
+
+        String sql = "SELECT * FROM `election` WHERE (electionStartDate <= CURRENT_TIMESTAMP AND electionEndDate >= CURRENT_TIMESTAMP) OR (electionStartDate >= CURRENT_TIMESTAMP)";
+        RowMapper<Election> rowMapper = new BeanPropertyRowMapper<>(Election.class);
+        try {
+            electionArrayList = jdbcTemplate.query(sql, rowMapper);
+        } catch (DataAccessException e) {
+            System.out.println(e.getMessage());
+        }
+        return electionArrayList;
+    }
+
+    @Override
+    public List<Election> getPreviousElectionListForWeb() {
+        String sql = "SELECT * FROM `election` WHERE electionEndDate <= CURRENT_TIMESTAMP";
+        RowMapper<Election> rowMapper = new BeanPropertyRowMapper<>(Election.class);
+        try {
+            electionArrayList = jdbcTemplate.query(sql, rowMapper);
+        } catch (DataAccessException e) {
+            System.out.println(e.getMessage());
+        }
+        return electionArrayList;
+    }
 }

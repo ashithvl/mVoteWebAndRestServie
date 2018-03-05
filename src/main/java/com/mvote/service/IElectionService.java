@@ -10,4 +10,8 @@ public interface IElectionService {
 
     List<Election> getPreviousElectionList();
 
+    List<Election> getCurrentAndUpComingElectionListForWeb();
+
+    List<Election> getPreviousElectionListForWeb();
+
 }

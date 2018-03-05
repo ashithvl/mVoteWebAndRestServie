@@ -23,4 +23,14 @@ public class ElectionServiceImpl implements IElectionService {
     public List<Election> getPreviousElectionList() {
         return iElectionDao.getPreviousElectionList();
     }
+
+    @Override
+    public List<Election> getCurrentAndUpComingElectionListForWeb() {
+        return iElectionDao.getCurrentElectionList();
+    }
+
+    @Override
+    public List<Election> getPreviousElectionListForWeb() {
+        return iElectionDao.getPreviousElectionList();
+    }
 }

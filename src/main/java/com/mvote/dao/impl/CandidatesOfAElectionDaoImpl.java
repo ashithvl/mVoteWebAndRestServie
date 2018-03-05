@@ -1,6 +1,7 @@
 package com.mvote.dao.impl;
 
 import com.mvote.dao.ICandidatesOfAElectionDao;
+import com.mvote.models.Candidate;
 import com.mvote.models.Candidates;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -34,5 +35,27 @@ public class CandidatesOfAElectionDaoImpl implements ICandidatesOfAElectionDao {
         }
 
         return candidatesList;
+    }
+
+    @Override
+    public Candidate createCandidate(Candidate candidate) {
+        Candidate newCandidate = null;
+
+        String sql = "INSERT INTO `candidates` ( `candidatesName`, `candidatesImage`, `createdBy`, `createdTs`, `modifiedBy`, `modifiedTs`, `deleFlag`) VALUES ( '" + candidate.getCandidatesName() + "', '" + candidate.getCandidatesImage() + "', '1', CURRENT_TIMESTAMP, '1', CURRENT_TIMESTAMP, '0')";
+        int candidateId;
+        try {
+            candidateId = jdbcTemplate.update(sql);
+            String selectQuery = "SELECT candidatesId,candidatesName,candidatesImage FROM `candidates` WHERE candidatesId = ?";
+            RowMapper<Candidate> rowMapper = new BeanPropertyRowMapper<>(Candidate.class);
+            try {
+                newCandidate = jdbcTemplate.queryForObject(selectQuery, rowMapper, candidateId);
+            } catch (DataAccessException e) {
+                System.out.println(e.getMessage());
+            }
+        } catch (DataAccessException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return newCandidate;
     }
 }
