@@ -9,5 +9,7 @@ public interface ICandidatesOfAElectionService {
 
     List<Candidates> getElectionCandidatesList(int electionId);
 
+    List<Candidates> getElectionCandidatesNotInList(int electionId);
+
     Candidate createCandidate(Candidate candidate);
 }

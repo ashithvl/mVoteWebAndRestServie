@@ -21,12 +21,27 @@ public class CandidatesOfAElectionDaoImpl implements ICandidatesOfAElectionDao {
     @Autowired
     JdbcTemplate jdbcTemplate;
 
-    private List<Candidates> candidatesList = new ArrayList<>();
 
     @Override
     public List<Candidates> getElectionCandidatesList(int electionId) {
 
+        List<Candidates> candidatesList = new ArrayList<>();
         String sql = "SELECT candidates.candidatesId,candidates.candidatesName,electioncandidates.electionId FROM `candidates` AS candidates INNER JOIN electioncandidates AS electioncandidates ON electioncandidates.candidatesId = candidates.candidatesId AND electioncandidates.electionId = ?";
+        RowMapper<Candidates> rowMapper = new BeanPropertyRowMapper<>(Candidates.class);
+        try {
+            candidatesList = jdbcTemplate.query(sql, rowMapper, electionId);
+        } catch (DataAccessException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return candidatesList;
+    }
+
+    @Override
+    public List<Candidates> getElectionCandidatesNotInList(int electionId) {
+
+        List<Candidates> candidatesList = new ArrayList<>();
+        String sql = "SELECT candidatesId,candidatesName,candidatesImage FROM `candidates` WHERE candidatesId NOT IN (SELECT candidatesId FROM electioncandidates WHERE electionId = ? )";
         RowMapper<Candidates> rowMapper = new BeanPropertyRowMapper<>(Candidates.class);
         try {
             candidatesList = jdbcTemplate.query(sql, rowMapper, electionId);

@@ -65,7 +65,21 @@ public class WebAppElectionController {
     @RequestMapping(value = "/election/{id}/cur", method = RequestMethod.GET)
     public String electionCandidatesCur(@PathVariable("id") int id, Model model) {
         List<Candidates> candidatesList = iCandidatesOfAElectionService.getElectionCandidatesList(id);
+        List<Candidates> candidatesNotInElectionList = iCandidatesOfAElectionService.getElectionCandidatesNotInList(id);
         model.addAttribute("candidatesList", candidatesList);
+        model.addAttribute("candidatesNotInElectionList", candidatesNotInElectionList);
+        model.addAttribute("electionId", id);
+        return "electionCandidates";
+    }
+
+    @RequestMapping(value = "/election/{id}/cur/error", method = RequestMethod.GET)
+    public String electionCandidatesCurError(@PathVariable("id") int id, Model model) {
+        List<Candidates> candidatesList = iCandidatesOfAElectionService.getElectionCandidatesList(id);
+        List<Candidates> candidatesNotInElectionList = iCandidatesOfAElectionService.getElectionCandidatesNotInList(id);
+        model.addAttribute("candidatesList", candidatesList);
+        model.addAttribute("candidatesNotInElectionList", candidatesNotInElectionList);
+        model.addAttribute("error", "Choose an Option");
+        model.addAttribute("electionId", id);
         return "electionCandidates";
     }
 
@@ -73,7 +87,20 @@ public class WebAppElectionController {
     public String electionCandidatesPre(@PathVariable("id") int id, Model model) {
         List<Candidates> candidatesList = iCandidatesOfAElectionService.getElectionCandidatesList(id);
         model.addAttribute("candidatesList", candidatesList);
+        model.addAttribute("pre", candidatesList);
         return "electionCandidates";
+    }
+
+
+    @RequestMapping(value = "/election/addCandidate", method = RequestMethod.POST)
+    public String addCandidatesCurrentElection(@RequestParam("candidateId") String candidatesId,
+                                               @RequestParam("electionId") String electionId, Model model) {
+        if (candidatesId.equals("0")) {
+            return "redirect:/election/" + Integer.parseInt(electionId) + "/cur/error";
+        }
+        iElectionService.addCandidateToElection(candidatesId,electionId);
+
+        return "redirect:/election/" + Integer.parseInt(electionId) + "/cur";
     }
 
 }

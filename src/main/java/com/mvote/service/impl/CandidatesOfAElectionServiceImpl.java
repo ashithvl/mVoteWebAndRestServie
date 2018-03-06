@@ -21,6 +21,11 @@ public class CandidatesOfAElectionServiceImpl implements ICandidatesOfAElectionS
     }
 
     @Override
+    public List<Candidates> getElectionCandidatesNotInList(int electionId) {
+        return iCandidatesOfAElectionDao.getElectionCandidatesNotInList(electionId);
+    }
+
+    @Override
     public Candidate createCandidate(Candidate candidate) {
         return iCandidatesOfAElectionDao.createCandidate(candidate);
     }

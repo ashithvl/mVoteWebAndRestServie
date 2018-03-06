@@ -15,4 +15,6 @@ public interface IElectionDao {
     List<Election> getPreviousElectionListForWeb();
 
     Election createElection(Election election);
+
+    void addCandidateToElection(String candidateId, String electionId);
 }

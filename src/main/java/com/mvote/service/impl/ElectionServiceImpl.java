@@ -38,4 +38,9 @@ public class ElectionServiceImpl implements IElectionService {
     public Election createElection(Election election) {
         return iElectionDao.createElection(election);
     }
+
+    @Override
+    public void addCandidateToElection(String candidateId, String electionId) {
+        iElectionDao.addCandidateToElection(candidateId, electionId);
+    }
 }

@@ -4,7 +4,7 @@ public class Candidates {
 
     private int electionId;
     private int candidatesId;
-    private String  candidatesName;
+    private String candidatesName;
 
     public int getElectionId() {
         return electionId;

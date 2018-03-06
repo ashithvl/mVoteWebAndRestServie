@@ -97,4 +97,16 @@ public class ElectionDaoImpl implements IElectionDao {
 
         return newElection;
     }
+
+    @Override
+    public void addCandidateToElection(String candidateId, String electionId) {
+
+        String sql = "INSERT INTO `electioncandidates` ( `candidatesId`, `electionId`, `createdBy`, `createdTs`, `modifiedBy`, `modifiedTs`, `deleteFlag`) VALUES ('" + candidateId + "', '" + electionId + "', '1', CURRENT_TIMESTAMP, '1', CURRENT_TIMESTAMP, '0')";
+        try {
+            jdbcTemplate.update(sql);
+        } catch (DataAccessException e) {
+            System.out.println(e.getMessage());
+        }
+
+    }
 }
