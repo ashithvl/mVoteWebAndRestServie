@@ -22,12 +22,12 @@
                 </div>
                 <div class="form-group">
                     <label for="start">Start Date:</label>
-                    <input type="date" th:field="*{electionStartDate}" class="form-control" autocomplete="off"
+                    <input type="datetime-local" th:field="*{electionStartDate}" class="form-control" autocomplete="off"
                            id="start"/>
                 </div>
                 <div class="form-group">
                     <label for="end">End Date:</label>
-                    <input type="date" th:field="*{electionEndDate}" class="form-control" autocomplete="off"
+                    <input type="datetime-local" th:field="*{electionEndDate}" class="form-control" autocomplete="off"
                            id="end"/>
                 </div>
                 <button type="submit" class="btn btn-primary"> Submit</button>

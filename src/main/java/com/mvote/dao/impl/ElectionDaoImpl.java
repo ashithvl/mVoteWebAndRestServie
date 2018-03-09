@@ -54,7 +54,7 @@ public class ElectionDaoImpl implements IElectionDao {
     @Override
     public List<Election> getCurrentAndUpComingElectionListForWeb() {
 
-        String sql = "SELECT * FROM `election` WHERE (electionStartDate <= CURRENT_TIMESTAMP AND electionEndDate >= CURRENT_TIMESTAMP) OR (electionStartDate >= CURRENT_TIMESTAMP)";
+        String sql = "SELECT electionId,electionName,electionStartDate,electionEndDate FROM `election` WHERE electionEndDate > CURRENT_TIMESTAMP";
         RowMapper<Election> rowMapper = new BeanPropertyRowMapper<>(Election.class);
         try {
             electionArrayList = jdbcTemplate.query(sql, rowMapper);
