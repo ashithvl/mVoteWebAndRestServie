@@ -50,8 +50,8 @@ public class CandidatesController {
                                @PathVariable int candidateId) {
         String vote = iCandidateVoteService.vote(userId, electionId, candidateId);
         if (vote.equals("success")) {
-            System.out.println(vote);
-            return new ResponseEntity<>(vote, HttpStatus.OK);
+            System.out.println("{'vote':'"+vote+"'}");
+            return new ResponseEntity<>("{'vote':'"+vote+"'}", HttpStatus.OK);
         } else
             return new ResponseEntity<>(new CustomErrorType("No votes found"), HttpStatus.NOT_FOUND);
     }
